@@ -1,9 +1,11 @@
 package reseauSocialTestV2;
 
-import static org.junit.Assert.*;
+
 
 import java.util.Set;
 
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ public class SecondTests {
     SocialNetworkInterface<Member> iutRS;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         iutRS = new SocialNetWorkImpl("IUT");
     }
     
@@ -71,16 +73,26 @@ public class SecondTests {
         iutRS.relate(Strength.LOW, panoramix,abraracourcix);
     }
 
+      
+
+    // ----------------- Pour compatibilité des codes avec Junit4 sans trop me fatiguer :-) 
+    private static void assertEquals(String commentaire, int valeurAttendue, int valeurObtenue) {
+    	Assertions.assertEquals(valeurAttendue, valeurObtenue, commentaire);
+    }
+    private static void assertTrue(String commentaire, boolean value) {
+    	Assertions.assertTrue(value, commentaire);
+    }
     
 
-    
+
+    // ---------------- Tests
 
     @Test
     public void testInit() {
-        assertTrue(iutRS != null);
+        Assertions.assertTrue(iutRS != null);
     	initGaulois(iutRS);
-    	 assertTrue(obelix!= null);
-    	 assertTrue(asterix!= null);
+    	Assertions.assertTrue(obelix!= null);
+    	Assertions.assertTrue(asterix!= null);
     }
 
     @Test
