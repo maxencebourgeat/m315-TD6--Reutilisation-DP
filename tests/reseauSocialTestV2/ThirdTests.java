@@ -21,7 +21,10 @@ public class ThirdTests{
 	//TODO : reference to be modified according to your implementation
 	//Member refers to your implementation of MemberInterface
 	//SocialNetWorkImpl refers to your implementation of SocialNetworkInterface
-	SocialNetworkInterface<Member> iutRS;
+	
+	//SocialNetworkInterface<Member> iutRS;
+	
+	SocialNetWorkImpl iutRS;
 
 	//Spy snoop = new Spy();
 
@@ -146,27 +149,28 @@ public class ThirdTests{
 		assertEquals("taille des amis d'Hercule au rang 1 : 1 membre car seul zeus est connu de nous", 1, membresAmis.size());
 	
 		//si on ajoute un lien dans fg entre Hera et hercule on ne le voit pas.
-		fg.addFamilyRelation("Zeus", "Hera");
+		fg.addFamilyRelation("Hercule", "Hera");
 		membresAmis = iutRS.relatedToRank(hercule, 1);
-		assertEquals("taille des amis d'Hercule au rang 1 : 1 membre car one ne voit pas lien avec Hera", 1, membresAmis.size());
-		assertTrue (iutRS.relatedToRank(hera, 1).size()==0);
+		assertEquals("taille des amis d'Hercule au rang 1 : 1 membre car on ne voit pas lien avec Hera", 1, membresAmis.size());
+		assertEquals(0,iutRS.relatedToRank(hera, 1).size());
 		
 		//maintenant si lajout de lien se fait dans fg nous les verrons grace à l'observer
-		//Il faut donc enlever le commentaire ci-dessous
-		//fg.addPropertyChangeListener(iutRS);
-		//fg.addPropertyChangeListener(snoop);
-		//((SocialNetWorkImpl)iutRS).addPropertyChangeListener(snoop);
+		fg.addPropertyChangeListener(iutRS);
 		fg.addFamilyRelation("Zeus", "Hera");
 		
+		//Seul le lien entre Zeus et Hera est enregistré
 		membresAmis = iutRS.relatedToRank(hera, 1);
 		assertEquals("taille des amis Hera au rang 1 : 1 membres", 1, membresAmis.size());
 		
 
-		//Non demande
-		/*   MemberInterface asterix = iutRS.addMember("Asterix",0,"Asterix, le plus intelligent");
-        fg.addUser("Asterix", "Albert Uderzo, Asterix est le seul anti-heros qui ait jamais autant collectionne les succes et les exploits.");
-        assertEquals("description de Asterix", asterix.getDescription(), fg.getUser("Asterix").myProfil());
-		 */
+		//fg.addPropertyChangeListener(snoop);
+		//((SocialNetWorkImpl)iutRS).addPropertyChangeListener(snoop);
+		
+		//Facultatif
+		Member megara = iutRS.addMember("Mégara");
+		assertEquals(Member.DEFAULT_LOCATION , megara.getLocation());
+        fg.addUser("Mégara", "megara fut l'épouse d'Hercule","Thèbes");
+        assertEquals("Thèbes" , megara.getLocation());
 
 	}
 }
