@@ -1,9 +1,7 @@
 package reseauSocial.core;
 
 
-import java.beans.PropertyChangeListener;
 import java.util.Collection;
-import java.util.Observer;
 import java.util.Set;
 
 import facebookGhost.FacebookGhostNetwork;
